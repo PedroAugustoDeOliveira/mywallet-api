@@ -3,6 +3,7 @@ import Joi, { valid } from "joi";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import bcrypt from "bcrypt";
+import cors from "cors";
 
 import { connectToDatabase } from "./db";
 
@@ -14,6 +15,7 @@ import updateRouter from "./../routes/updateRouter";
 dotenv.config();
 const app: Express = express();
 app.use(express.json());
+app.use(cors());
 
 app.use(registerRouter);
 app.use(loginRouter);
