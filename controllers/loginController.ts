@@ -45,7 +45,7 @@ export async function postLogin(req: Request, res: Response) {
       createdAt: Date.now(),
     });
 
-    return res.status(200).send("Login successful");
+    return res.status(200).send({ message: "Login successful", token });
   } catch (error) {
     console.error("Error during login:", error);
     return res.status(500).send("Server error");
