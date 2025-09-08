@@ -64,3 +64,28 @@ export async function postRegister(req: Request, res: Response) {
     res.status(500).send(err);
   }
 }
+
+export async function getUsers(req: Request, res: Response) {
+  try {
+    const db = getDb();
+
+    const token = req.headers.authorization?.replace("Bearer ", "").trim();
+    if (!token) {
+      return res.status(401).send("Unauthorized");
+    }
+    const session = await db.collection("sessions").findOne({ token });
+    if (!session) {
+      return res.status(401).send("Invalid session");
+    }
+
+    const user = await db.collection("users").findOne({ _id: session.userId });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    res.status(200).send({ name: user.name });
+  } catch (err) {
+    console.error("Error sendind name:", err);
+    res.status(500).send("Internal server error");
+  }
+}
