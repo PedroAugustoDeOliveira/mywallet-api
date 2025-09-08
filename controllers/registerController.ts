@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Joi from "joi";
 import bcrypt from "bcrypt";
 import { getDb } from "./../src/db";
+import { ObjectId } from "mongodb";
 
 export async function postRegister(req: Request, res: Response) {
   interface UserRegister {
@@ -78,7 +79,9 @@ export async function getUsers(req: Request, res: Response) {
       return res.status(401).send("Invalid session");
     }
 
-    const user = await db.collection("users").findOne({ _id: session.userId });
+    const user = await db
+      .collection("users")
+      .findOne({ _id: new ObjectId(session.userId) });
     if (!user) {
       return res.status(404).send("User not found");
     }
