@@ -7,5 +7,6 @@ export interface Transaction {
   userId?: ObjectId;
   type: TransactionType;
   description: string;
+  createdAt: Date;
   value: number;
 }
