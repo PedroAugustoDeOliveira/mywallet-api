@@ -44,7 +44,6 @@ export async function postIncome(req: Request, res: Response) {
       description,
       value,
       type: "income",
-      createdAt: new Date(),
       userId,
     };
 
@@ -100,7 +99,7 @@ export async function postExpense(req: Request, res: Response) {
       description,
       value,
       type: "expense",
-      createdAt: new Date(),
+
       userId,
     };
 
